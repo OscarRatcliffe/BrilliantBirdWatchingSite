@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bird counting site</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Burned&display=swap" rel="stylesheet">
+
+    <audio autoplay>
+      <source src="" type="audio/mp3">
+    </audio> 
+
+    <script>
+
+        const randomHexColorCode = () => {
+            let n = (Math.random() * 0xfffff * 1000000).toString(16);
+            return '#' + n.slice(0, 6);
+        };
+        
+        function increaseAmount() {
+            let dropdownIndex = document.getElementById("birds").value;
+            let element = document.getElementById(dropdownIndex);
+            let amount = document.getElementById("amount").value;
+
+            // Incriment counter
+            element.innerHTML = parseInt(element.innerHTML, 10) + parseInt(amount)
+
+            // Change document colour
+            document.body.style.color = randomHexColorCode();
+
+        }
+
+        function speedChange() {
+          document.body.style.animationDuration = document.getElementById("speed").value + "ms"
+        }
+    </script>
+
+    <style>
+        body {
+            background-image: url("https://miro.medium.com/v2/resize:fit:1024/1*XNalZYXaFYlGxT-BCgnYEw.png");
+            background-size: repeat;
+            animation: moveBackground;
+            animation-iteration-count: infinite;
+            animation-duration: 3000ms;
+            animation-timing-function: linear;
+
+            font-family: "Comic Sans MS", "Comic Sans", cursive;
+            font-size: 2em;
+            text-align: center;
+
+            color: pink;
+
+            align-items: center;
+            overflow: hidden;
+            
+            transform:rotate(-6deg);
+            margin: -25px;
+            height: 100vh;
+        }
+
+        #birds {
+            margin-top: 2em;
+        }
+
+        #deadTwitter {
+            position: absolute;
+            height: 10em;
+            animation: bounce 4s infinite;
+            z-index: -100;
+        }
+
+        #title:hover {
+            animation-name: spin;
+            animation-duration: 500ms;
+            animation-iteration-count: infinite;
+            animation-timing-function: cubic-bezier();  
+        }
+
+        #WithLove {
+            position: absolute;
+            margin-top: -6em;
+            color: #e4d040;
+            font-family: 'Rubik Burned', system-ui;
+
+            animation-name: wobble;
+            animation-duration: 3000ms;
+            animation-iteration-count: infinite;
+
+            background-color: aqua;
+            border-radius: 100%;
+            z-index: 0;
+
+        }
+
+        #table {
+            background: rgb(36,255,103);
+            background: linear-gradient(90deg, rgba(36,255,103,1) 0%, rgba(255,0,214,1) 27%, rgba(42,0,255,1) 48%, rgba(114,234,90,1) 67%, rgba(217,165,133,1) 91%); 
+            border-radius: 25%;
+        }
+
+        #buttonimg {
+          height: 5em;
+          position: absolute;
+          border-radius: 1em;
+        }
+
+        #buttonimg:active  {
+          height: 7em;
+          animation-name: spin;
+          animation-duration: 250ms;
+        }
+
+        #speed {
+          width: 25em;
+          z-index: 100;
+        }
+
+        #mainContent{
+          animation: moveContent;
+          animation-iteration-count: infinite;
+          animation-duration: 9000ms;
+          animation-timing-function: linear;
+        }
+
+        footer {
+          position:fixed;
+          left: -50px;
+          bottom:-50px;
+          height:130px;
+          width:100%;
+          background:#000;
+          transform:rotate(6deg);
+          font-family:monospace;
+          text-align: center;
+        }
+
+        footer:hover {
+          opacity: 0;
+        }
+
+        .footerText {
+          color: white;
+          padding: 0;
+          margin: 0;
+        }
+
+        #hiddenFooterText {
+          color: red;
+          position: fixed;
+          bottom: 0px;
+          right: 25%;
+          z-index: -400;
+        }
+
+        @keyframes spin {
+                0% {
+                    transform:rotate(0deg);
+                    color: chartreuse;
+                }
+                to {
+                    transform:rotate(360deg);
+                    color: blueviolet;
+                }
+            }
+
+        @keyframes wobble{
+          0% {
+            transform:rotate(-9deg);
+            opacity: 60;
+          }
+          50% {
+            transform:rotate(15deg);
+            opacity: 100;
+          }
+          100% {
+            transform:rotate(-9deg);
+            opacity: 60;
+          }
+        }
+
+        @keyframes moveBackground {
+            0% {
+                background-position: 0 0;
+                opacity: 100%;
+            }
+            25% {
+                background-position: 100vw 100vh;
+                opacity: 0%;
+            }
+            50% {
+                background-position: 0 0;
+                opacity: 100%;
+            }
+            75% {
+                background-position: -100vw 100vh;
+                opacity: 0%;
+            }
+            100% {
+                background-position: 100 0;
+                opacity: 100%;
+            }
+        }
+
+        @keyframes moveContent {
+          0% {
+            padding-top: 0;
+          }
+          50% {
+            padding-top: 5em;
+          }
+          100%{
+            padding-top: 0;
+          }
+        }
+
+        @keyframes bounce {
+          0%, 100% {
+            transform: translate(0, 0);
+          }
+          25%, 75% {
+            transform: translate(-200px, 0);
+          }
+          50% {
+            transform: translate(0, 0);
+          }
+        }
+    </style>
+
+</head>
+<body>
+
+    <div id="mainContent">
+
+    <h1 id="title">Bird watching site</h1>
+    <input type="range" min="100" max="1500" value="750" onchange="speedChange()" id="speed">
+
+    <image id="deadTwitter" src="https://cdn.techinasia.com/wp-content/uploads/2009/12/twitter-dead-bird.png"></image>
+
+    <input id="amount" placeholder="Amount seen">
+      <table id="table">
+        <tr>
+          <th>Bird</th>
+          <th>Amount</th>
+        </tr>
+        <tr>
+          <td>Parrot</td>
+          <td id="Parrot">0</td>
+        </tr>
+        <tr>
+          <td>Owl</td>
+          <td id="Owl">0</td>
+        </tr>
+        <tr>
+          <td>Chicken</td>
+          <td id="Chicken">0</td>
+        </tr>
+      </table> 
+
+
+      <select class="updateElements" id="birds">
+        <option value="Parrot">Parrot</option>
+        <option value="Owl">Owl</option>
+        <option value="Chicken">Chicken</option>
+      </select>
+
+      <button id="button" class="updateElements" onclick="increaseAmount()"><img id="buttonimg" src="https://elements-video-cover-images-0.imgix.net/files/221732370/preview.jpg?auto=compress%2Cformat&h=281&w=500&fit=min&s=2de6f1d8b042c39147695ed0a280c407"></button>
+
+      <h2 id="WithLove">Made with love</h2>
+    </div>
+
+    <footer>
+      <h1 class="footerText">Oscar Ratcliffe</h1>
+      <h3 class="footerText">Web development</h3>
+    </footer>
+
+    <h4s id="hiddenFooterText">Sometimes we can't have nice things</h4>
+    
+  </body>
+</html>
